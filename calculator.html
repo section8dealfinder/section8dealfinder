@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deal Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        .calculator-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .calculator-container h2 {
+            text-align: center;
+        }
+
+        .address-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .address-container input {
+            width: 100%;
+            max-width: 600px;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem; /* Adjust this value to increase or decrease the gap */
+            margin-bottom: 2rem; /* Adds space below the form */
+        }
+
+        .form-grid .input-group {
+            display: flex;
+            flex-direction: column;
+            margin: 0.5rem 0;
+        }
+
+        .form-grid .input-group input,
+        .form-grid .input-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-grid .input-group h3 {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .calculator-container button {
+            background-color: #333;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            display: inline-block;
+        }
+
+        .calculator-container button:hover {
+            background-color: #555;
+        }
+
+        .cancel-btn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .cancel-btn:hover {
+            background-color: #ccc;
+        }
+
+        .results-container {
+            margin-top: 1rem;
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .saved-calculations {
+            margin-top: 2rem;
+        }
+
+        .saved-calculations table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .saved-calculations th,
+        .saved-calculations td {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+        }
+
+        .saved-calculations th {
+            background-color: #f4f4f4;
+        }
+
+        .saved-calculations .edit-btn,
+        .saved-calculations .delete-btn {
+            background-color: #333;
+            color: white;
+            padding: 0.3rem 0.5rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .saved-calculations .edit-btn:hover {
+            background-color: #555;
+        }
+
+        .saved-calculations .delete-btn:hover {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Section 8 Deal Finder</h1>
+            <nav>
+                <a href="index.html">Deal Finder</a>
+                <a href="fmr.html">FMR</a>
+                <a href="crime.html">Crime</a>
+                <a href="calculator.html">Calculator</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="properties.html">Properties</a>
+                <a href="tenants.html">Tenants</a>
+                <a href="invoices.html">Invoices</a>
+                <a href="community.html">Community</a>
+                <a href="login.html">Login / Signup</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="calculator-container">
+            <h2>Deal Calculator</h2>
+
+            <!-- Property Address Section -->
+            <div class="address-container">
+                <input type="text" id="propertyAddress" placeholder="Property Address">
+            </div>
+
+            <!-- Mortgage and Expenses Section -->
+            <div class="form-grid">
+                <!-- Mortgage Inputs -->
+                <div class="input-group">
+                    <h3>Mortgage Inputs</h3>
+                    <input type="number" id="currentRent" placeholder="Current Rent ($)" step="0.01">
+                    <input type="number" id="purchasePrice" placeholder="Purchase Price ($)" step="0.01">
+                    <input type="number" id="downPayment" placeholder="Down Payment (%)" step="0.01">
+                    <input type="number" id="interestRate" placeholder="Interest Rate (%)" step="0.01">
+                    <input type="number" id="mortgageTerm" placeholder="Mortgage Term (years)" step="1">
+                </div>
+
+                <!-- Expenses Inputs -->
+                <div class="input-group">
+                    <h3>Expenses</h3>
+                    <input type="number" id="propertyManagement" placeholder="Property Management ($)" step="0.01">
+                    <input type="number" id="propertyTaxes" placeholder="Property Taxes ($)" step="0.01">
+                    <input type="number" id="insurance" placeholder="Insurance ($)" step="0.01">
+                    <input type="number" id="utilities" placeholder="Utilities ($)" step="0.01">
+                    <input type="number" id="vacancyReserve" placeholder="Vacancy Reserve (%)" step="0.01">
+                    <input type="number" id="maintenanceReserve" placeholder="Maintenance Reserve ($)" step="0.01">
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <button id="calculateButton" onclick="calculateMortgage()">Calculate</button>
+            <button id="cancelButton" class="cancel-btn" onclick="cancelEdit()">Cancel</button>
+
+            <!-- Results Section -->
+            <div class="results-container" id="resultsContainer">
+                <h3>Results</h3>
+                <p id="grossRent">Gross Rent: $0.00</p>
+                <p id="totalOperatingExpenses">Total Operating Expenses: $0.00</p>
+                <p id="monthlyNOI">Monthly NOI: $0.00</p>
+                <p id="annualNOI">Annual NOI: $0.00</p>
+                <p id="capRate">Cap Rate: 0.00%</p>
+                <p id="mortgage">Mortgage: $0.00</p>
+                <p id="monthlyCashFlow">Monthly Cashflow: $0.00</p>
+                <p id="annualCashFlow">Annual Cashflow: $0.00</p>
+                <p id="annualizedROI">Annualized ROI: 0.00%</p>
+            </div>
+
+            <!-- Saved Calculations Section -->
+            <div class="saved-calculations">
+                <h3>Saved Calculations</h3>
+                <table id="calculationsTable">
+                    <thead>
+                        <tr>
+                            <th>Address</th>
+                            <th>Gross Rent</th>
+                            <th>Total Expenses</th>
+                            <th>Monthly NOI</th>
+                            <th>Annual NOI</th>
+                            <th>Cap Rate</th>
+                            <th>Mortgage</th>
+                            <th>Monthly Cashflow</th>
+                            <th>Annual Cashflow</th>
+                            <th>Annualized ROI</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Saved calculations will be appended here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Section 8 Deal Finder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const calculations = [];
+        let editIndex = null;
+
+        function calculateMortgage() {
+            // Inputs
+            const propertyAddress = document.getElementById('propertyAddress').value || 'N/A';
+            const currentRent = parseFloat(document.getElementById('currentRent').value) || 0;
+            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
+            const downPayment = parseFloat(document.getElementById('downPayment').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+            const mortgageTerm = parseFloat(document.getElementById('mortgageTerm').value) || 0;
+            const propertyManagement = parseFloat(document.getElementById('propertyManagement').value) || 0;
+            const propertyTaxes = parseFloat(document.getElementById('propertyTaxes').value) || 0;
+            const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+            const utilities = parseFloat(document.getElementById('utilities').value) || 0;
+            const vacancyReserve = parseFloat(document.getElementById('vacancyReserve').value) || 0;
+            const maintenanceReserve = parseFloat(document.getElementById('maintenanceReserve').value) || 0;
+
+            // Calculations
+            const totalExpenses = propertyManagement + propertyTaxes + insurance + utilities;
+            const grossRent = currentRent;
+            const monthlyNOI = grossRent - totalExpenses;
+            const annualNOI = monthlyNOI * 12;
+            const capRate = (annualNOI / purchasePrice) * 100;
+
+            const principal = purchasePrice - (purchasePrice * (downPayment / 100));
+            const monthlyInterestRate = (interestRate / 100) / 12;
+            const numberOfPayments = mortgageTerm * 12;
+            const monthlyMortgagePayment = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+            const annualMortgagePayment = monthlyMortgagePayment * 12;
+
+            const monthlyCashFlow = monthlyNOI - monthlyMortgagePayment;
+            const annualCashFlow = monthlyCashFlow * 12;
+            const annualizedROI = (annualCashFlow / (purchasePrice * (downPayment / 100))) * 100;
+
+            // Update Results
+            document.getElementById('grossRent').textContent = `Gross Rent: $${grossRent.toFixed(2)}`;
+            document.getElementById('totalOperatingExpenses').textContent = `Total Operating Expenses: $${totalExpenses.toFixed(2)}`;
+            document.getElementById('monthlyNOI').textContent = `Monthly NOI: $${monthlyNOI.toFixed(2)}`;
+            document.getElementById('annualNOI').textContent = `Annual NOI: $${annualNOI.toFixed(2)}`;
+            document.getElementById('capRate').textContent = `Cap Rate: ${capRate.toFixed(2)}%`;
+            document.getElementById('mortgage').textContent = `Mortgage: $${monthlyMortgagePayment.toFixed(2)}`;
+            document.getElementById('monthlyCashFlow').textContent = `Monthly Cashflow: $${monthlyCashFlow.toFixed(2)}`;
+            document.getElementById('annualCashFlow').textContent = `Annual Cashflow: $${annualCashFlow.toFixed(2)}`;
+            document.getElementById('annualizedROI').textContent = `Annualized ROI: ${annualizedROI.toFixed(2)}%`;
+
+            // Save to table
+            saveCalculation(propertyAddress, grossRent, totalExpenses, monthlyNOI, annualNOI, capRate, monthlyMortgagePayment, monthlyCashFlow, annualCashFlow, annualizedROI);
+        }
+
+        function saveCalculation(address, grossRent, totalExpenses, monthlyNOI, annualNOI, capRate, mortgage, monthlyCashFlow, annualCashFlow, annualizedROI) {
+            const calculation = { address, grossRent, totalExpenses, monthlyNOI, annualNOI, capRate, mortgage, monthlyCashFlow, annualCashFlow, annualizedROI };
+
+            if (editIndex === null) {
+                calculations.push(calculation);
+            } else {
+                calculations[editIndex] = calculation;
+                editIndex = null;
+            }
+
+            renderCalculations();
+        }
+
+        function renderCalculations() {
+            const tableBody = document.querySelector('#calculationsTable tbody');
+            tableBody.innerHTML = '';
+
+            calculations.forEach((calc, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${calc.address}</td>
+                    <td>$${calc.grossRent.toFixed(2)}</td>
+                    <td>$${calc.totalExpenses.toFixed(2)}</td>
+                    <td>$${calc.monthlyNOI.toFixed(2)}</td>
+                    <td>$${calc.annualNOI.toFixed(2)}</td>
+                    <td>${calc.capRate.toFixed(2)}%</td>
+                    <td>$${calc.mortgage.toFixed(2)}</td>
+                    <td>$${calc.monthlyCashFlow.toFixed(2)}</td>
+                    <td>$${calc.annualCashFlow.toFixed(2)}</td>
+                    <td>${calc.annualizedROI.toFixed(2)}%</td>
+                    <td>
+                        <button class="edit-btn" onclick="editCalculation(${index})">Edit</button>
+                        <button class="delete-btn" onclick="deleteCalculation(${index})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function editCalculation(index) {
+            const calc = calculations[index];
+            document.getElementById('propertyAddress').value = calc.address;
+            document.getElementById('currentRent').value = calc.grossRent;
+            document.getElementById('purchasePrice').value = calc.purchasePrice;
+            document.getElementById('downPayment').value = calc.downPayment;
+            document.getElementById('interestRate').value = calc.interestRate;
+            document.getElementById('mortgageTerm').value = calc.mortgageTerm;
+            document.getElementById('propertyManagement').value = calc.propertyManagement;
+            document.getElementById('propertyTaxes').value = calc.propertyTaxes;
+            document.getElementById('insurance').value = calc.insurance;
+            document.getElementById('utilities').value = calc.utilities;
+            document.getElementById('vacancyReserve').value = calc.vacancyReserve;
+            document.getElementById('maintenanceReserve').value = calc.maintenanceReserve;
+
+            editIndex = index;
+        }
+
+        function deleteCalculation(index) {
+            calculations.splice(index, 1);
+            renderCalculations();
+        }
+
+        function cancelEdit() {
+            editIndex = null;
+            document.getElementById('propertyAddress').value = '';
+            document.getElementById('currentRent').value = '';
+            document.getElementById('purchasePrice').value = '';
+            document.getElementById('downPayment').value = '';
+            document.getElementById('interestRate').value = '';
+            document.getElementById('mortgageTerm').value = '';
+            document.getElementById('propertyManagement').value = '';
+            document.getElementById('propertyTaxes').value = '';
+            document.getElementById('insurance').value = '';
+            document.getElementById('utilities').value = '';
+            document.getElementById('vacancyReserve').value = '';
+            document.getElementById('maintenanceReserve').value = '';
+        }
+    </script>
+</body>
+</html>

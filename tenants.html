@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenants</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tenants-container {
+            margin: 1rem;
+        }
+
+        .tenants-list {
+            margin-bottom: 1rem;
+        }
+
+        .tenants-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tenants-list th, .tenants-list td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        .tenants-list th {
+            background-color: #f4f4f4;
+        }
+
+        .add-tenant-button {
+            display: block;
+            padding: 0.5rem 1rem;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .add-tenant-button:hover {
+            background-color: #555;
+        }
+
+        .form-container {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .form-container form {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-container label {
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            width: calc(100% - 1rem);
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            padding: 0.5rem 1rem;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #555;
+        }
+
+        .file-actions button {
+            padding: 0.3rem 0.6rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #333;
+            margin: 0 0.5rem;
+        }
+
+        .file-actions button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Section 8 Deal Finder</h1>
+            <nav>
+                <a href="index.html">Deal Finder</a>
+                <a href="fmr.html">FMR</a>
+                <a href="crime.html">Crime</a>
+                <a href="calculator.html">Calculator</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="properties.html">Properties</a>
+                <a href="tenants.html">Tenants</a>
+                <a href="invoices.html">Invoices</a>
+                <a href="community.html">Community</a>
+                <a href="login.html">Login / Signup</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tenants-container">
+            <section class="tenants-list">
+                <h2>Tenant List</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>Unit Number</th>
+                            <th>Lease Start Date</th>
+                            <th>Lease End Date</th>
+                            <th>Lease Document</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tenantTableBody">
+                        <!-- Tenant rows will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </section>
+            
+            <button class="add-tenant-button" onclick="toggleForm()">Add Tenant</button>
+
+            <section class="form-container" id="tenantForm">
+                <h2 id="formTitle">Add Tenant</h2>
+                <form id="addTenantForm">
+                    <input type="hidden" id="editIndex">
+                    
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+
+                    <label for="middleName">Middle Name:</label>
+                    <input type="text" id="middleName" name="middleName">
+
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone">
+
+                    <label for="address">Address:</label>
+                    <select id="address" name="address" required>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+
+                    <label for="unitNumber">Unit Number:</label>
+                    <input type="text" id="unitNumber" name="unitNumber" required>
+
+                    <label for="leaseStart">Lease Start Date:</label>
+                    <input type="date" id="leaseStart" name="leaseStart" required>
+
+                    <label for="leaseEnd">Lease End Date:</label>
+                    <input type="date" id="leaseEnd" name="leaseEnd" required>
+
+                    <label for="leaseDocument">Lease Document:</label>
+                    <input type="file" id="leaseDocument" name="leaseDocument">
+
+                    <button type="submit" id="submitButton">Submit</button>
+                </form>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Section 8 Deal Finder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let editIndex = null;
+
+        function toggleForm() {
+            const formContainer = document.getElementById('tenantForm');
+            formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+            if (editIndex !== null) {
+                populateForm(editIndex);
+            }
+        }
+
+        function populateForm(index) {
+            const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+            const tenant = tenants[index];
+
+            document.getElementById('firstName').value = tenant.firstName;
+            document.getElementById('middleName').value = tenant.middleName;
+            document.getElementById('lastName').value = tenant.lastName;
+            document.getElementById('email').value = tenant.email;
+            document.getElementById('phone').value = tenant.phone;
+            document.getElementById('unitNumber').value = tenant.unitNumber;
+            document.getElementById('leaseStart').value = tenant.leaseStart;
+            document.getElementById('leaseEnd').value = tenant.leaseEnd;
+
+            // Set selected address from the dropdown
+            const addressSelect = document.getElementById('address');
+            addressSelect.value = tenant.address || ''; // Set the value
+
+            document.getElementById('editIndex').value = index;
+            document.getElementById('formTitle').textContent = 'Edit Tenant';
+            document.getElementById('submitButton').textContent = 'Update';
+        }
+
+        function handleFormSubmission(event) {
+            event.preventDefault();
+
+            const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+            const firstName = document.getElementById('firstName').value;
+            const middleName = document.getElementById('middleName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const unitNumber = document.getElementById('unitNumber').value;
+            const leaseStart = document.getElementById('leaseStart').value;
+            const leaseEnd = document.getElementById('leaseEnd').value;
+            const leaseDocument = document.getElementById('leaseDocument').files[0];
+
+            const tenant = {
+                firstName,
+                middleName,
+                lastName,
+                email,
+                phone,
+                address,
+                unitNumber,
+                leaseStart,
+                leaseEnd,
+                leaseDocument: leaseDocument ? URL.createObjectURL(leaseDocument) : 'N/A'
+            };
+
+            if (editIndex !== null) {
+                tenants[editIndex] = tenant;
+            } else {
+                tenants.push(tenant);
+            }
+
+            localStorage.setItem('tenants', JSON.stringify(tenants));
+            updateTenantTable();
+            document.getElementById('addTenantForm').reset();
+            document.getElementById('tenantForm').style.display = 'none';
+            editIndex = null;
+        }
+
+        function updateTenantTable() {
+            const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+            const tenantTableBody = document.getElementById('tenantTableBody');
+            tenantTableBody.innerHTML = '';
+
+            tenants.forEach((tenant, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${tenant.firstName}</td>
+                    <td>${tenant.middleName}</td>
+                    <td>${tenant.lastName}</td>
+                    <td>${tenant.email}</td>
+                    <td>${tenant.phone}</td>
+                    <td>${tenant.address}</td>
+                    <td>${tenant.unitNumber}</td>
+                    <td>${tenant.leaseStart}</td>
+                    <td>${tenant.leaseEnd}</td>
+                    <td>${tenant.leaseDocument !== 'N/A' ? `<a href="${tenant.leaseDocument}" download>Download</a>` : 'N/A'}</td>
+                    <td class="file-actions">
+                        <button onclick="editTenant(${index})">Edit</button>
+                        <button onclick="deleteTenant(${index})">Delete</button>
+                    </td>
+                `;
+                tenantTableBody.appendChild(row);
+            });
+        }
+
+        function populateAddressDropdown() {
+            const addressSelect = document.getElementById('address');
+            const properties = JSON.parse(localStorage.getItem('properties')) || [];
+            addressSelect.innerHTML = '<option value="">Select Address</option>'; // Reset options
+
+            properties.forEach(property => {
+                const option = document.createElement('option');
+                option.value = property.address; // Assuming property has an 'address' field
+                option.textContent = property.address;
+                addressSelect.appendChild(option);
+            });
+        }
+
+        function editTenant(index) {
+            editIndex = index;
+            toggleForm();
+        }
+
+        function deleteTenant(index) {
+            const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+            tenants.splice(index, 1);
+            localStorage.setItem('tenants', JSON.stringify(tenants));
+            updateTenantTable();
+        }
+
+        document.getElementById('addTenantForm').addEventListener('submit', handleFormSubmission);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateAddressDropdown();
+            updateTenantTable();
+        });
+    </script>
+</body>
+</html>

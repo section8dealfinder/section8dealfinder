@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #2c2f33;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .channel-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .channel-list li {
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .channel-list li:hover,
+        .channel-list li.active {
+            background-color: #7289da;
+        }
+
+        .profile-container {
+            margin-top: auto;
+            background-color: #2c2f33;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .profile-container img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .profile-container input {
+            margin-bottom: 1rem;
+            width: calc(100% - 2rem);
+        }
+
+        .profile-container button {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #7289da;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .profile-container button:hover {
+            background-color: #5b6eae;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #36393f;
+            color: #fff;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .chat-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #444;
+            background-color: #2f3136;
+            border-radius: 5px;
+        }
+
+        .chat-box .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .chat-box .message {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            background-color: #4f545c;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-box .message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .chat-box .message button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: #7289da;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .chat-box .message button:hover {
+            color: #5b6eae;
+        }
+
+        .chat-box .input-container {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #444;
+            background-color: #2f3136;
+        }
+
+        .chat-box input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #4f545c;
+            color: #fff;
+        }
+
+        .chat-box button {
+            padding: 0.5rem;
+            margin-left: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #7289da;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .chat-box button:hover {
+            background-color: #5b6eae;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Section 8 Deal Finder</h1>
+            <nav>
+                <a href="index.html">Deal Finder</a>
+                <a href="fmr.html">FMR</a>
+                <a href="crime.html">Crime</a>
+                <a href="calculator.html">Calculator</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="properties.html">Properties</a>
+                <a href="tenants.html">Tenants</a>
+                <a href="invoices.html">Invoices</a>
+                <a href="community.html">Community</a>
+                <a href="login.html">Login / Signup</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="sidebar">
+            <h2>Channels</h2>
+            <ul class="channel-list">
+                <li onclick="switchChannel('rules')" class="active">Rules</li>
+                <li onclick="switchChannel('general')">General Chat</li>
+                <li onclick="switchChannel('references')">References</li>
+                <li onclick="switchChannel('wins')">Wins</li>
+            </ul>
+            <div class="profile-container">
+                <img id="profilePicture" src="default-profile.jpg" alt="Profile Picture">
+                <input type="file" id="fileInput" accept="image/*" onchange="updateProfilePicture()">
+                <input type="text" id="usernameInput" placeholder="Username">
+                <input type="text" id="descriptionInput" placeholder="Description">
+                <button onclick="updateProfile()">Update Profile</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="chat-box" id="chatBox">
+                <div class="messages" id="messages">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+                <div class="input-container">
+                    <input type="text" id="messageInput" placeholder="Type a message">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Section 8 Deal Finder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let messagesData = {
+            rules: [],
+            general: [],
+            references: [],
+            wins: []
+        };
+
+        let userProfile = {
+            username: 'User',
+            description: 'No description',
+            profilePicture: 'default-profile.jpg'
+        };
+
+        function switchChannel(channel) {
+            const channelElements = document.querySelectorAll('.channel-list li');
+            channelElements.forEach(el => el.classList.remove('active'));
+            const activeChannel = document.querySelector(`.channel-list li[onclick="switchChannel('${channel}')"]`);
+            activeChannel.classList.add('active');
+            loadMessages(channel);
+        }
+
+        function loadMessages(channel) {
+            const messagesContainer = document.getElementById('messages');
+            messagesContainer.innerHTML = ''; // Clear existing messages
+            messagesData[channel].forEach((msg, index) => {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.innerHTML = `
+                    <img src="${msg.profilePicture}" alt="Profile Picture">
+                    <div>
+                        <strong>${msg.username}</strong>: ${msg.text}
+                    </div>
+                    <button onclick="editMessage(${index}, '${channel}')">Edit</button>
+                    <button onclick="deleteMessage(${index}, '${channel}')">Delete</button>
+                `;
+                messagesContainer.appendChild(messageElement);
+            });
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
+            const activeChannel = document.querySelector('.channel-list li.active').textContent.toLowerCase().replace(' ', '');
+            if (message.trim() === '') return;
+
+            const messageObj = {
+                text: message,
+                username: userProfile.username,
+                profilePicture: userProfile.profilePicture
+            };
+
+            messagesData[activeChannel].push(messageObj);
+            saveMessages();
+            loadMessages(activeChannel);
+            messageInput.value = '';
+        }
+
+        function editMessage(index, channel) {
+            const newText = prompt('Edit your message:', messagesData[channel][index].text);
+            if (newText === null || newText.trim() === '') return;
+            messagesData[channel][index].text = newText;
+            saveMessages();
+            loadMessages(channel);
+        }
+
+        function deleteMessage(index, channel) {
+            if (confirm('Are you sure you want to delete this message?')) {
+                messagesData[channel].splice(index, 1);
+                saveMessages();
+                loadMessages(channel);
+            }
+        }
+
+        function updateProfile() {
+            const username = document.getElementById('usernameInput').value;
+            const description = document.getElementById('descriptionInput').value;
+
+            if (username.trim() !== '') {
+                userProfile.username = username;
+            }
+
+            if (description.trim() !== '') {
+                userProfile.description = description;
+            }
+
+            saveProfile();
+        }
+
+        function updateProfilePicture() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    userProfile.profilePicture = e.target.result;
+                    document.getElementById('profilePicture').src = userProfile.profilePicture;
+                    saveProfile();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveMessages() {
+            localStorage.setItem('messagesData', JSON.stringify(messagesData));
+        }
+
+        function loadSavedMessages() {
+            const savedData = localStorage.getItem('messagesData');
+            if (savedData) {
+                messagesData = JSON.parse(savedData);
+            }
+        }
+
+        function saveProfile() {
+            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            loadProfile();
+        }
+
+        function loadProfile() {
+            const savedProfile = localStorage.getItem('userProfile');
+            if (savedProfile) {
+                userProfile = JSON.parse(savedProfile);
+                document.getElementById('profilePicture').src = userProfile.profilePicture;
+                document.getElementById('usernameInput').value = userProfile.username;
+                document.getElementById('descriptionInput').value = userProfile.description;
+            }
+        }
+
+        window.onload = function() {
+            loadSavedMessages();
+            loadProfile();
+            switchChannel('rules'); // Load initial channel
+        }
+    </script>
+</body>
+</html>

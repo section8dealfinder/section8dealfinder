@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMR Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .fmr-container {
+            margin: 1rem;
+        }
+
+        .fmr-search {
+            margin-bottom: 1rem;
+        }
+
+        .fmr-search input[type="text"] {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: calc(100% - 2rem);
+            margin-right: 1rem;
+        }
+
+        .fmr-search button {
+            padding: 0.5rem 1rem;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .fmr-search button:hover {
+            background-color: #555;
+        }
+
+        .fmr-results {
+            margin-top: 1rem;
+        }
+
+        .fmr-results .result {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .fmr-results h3 {
+            margin-top: 0;
+        }
+
+        .fmr-results p {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Section 8 Deal Finder</h1>
+            <nav>
+                <a href="index.html">Deal Finder</a>
+                <a href="fmr.html" class="active">FMR</a>
+                <a href="crime.html">Crime</a>
+                <a href="calculator.html">Calculator</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="Properties.html">Properties</a>
+                <a href="tenants.html">Tenants</a>
+                <a href="invoices.html">Invoices</a>
+                <a href="community.html">Community</a>
+                <a href="login.html">Login / Signup</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="fmr-container">
+            <section class="fmr-search">
+                <h2>Search HUD Fair Market Rents (FMR)</h2>
+                <input type="text" id="searchBar" placeholder="Enter ZIP code">
+                <button onclick="searchFMR()">Search</button>
+            </section>
+
+            <section class="fmr-results" id="results">
+                <!-- Search results will be dynamically inserted here -->
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Section 8 Deal Finder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const fmrData = [
+            // Add real FMR data here
+        ];
+
+        function searchFMR() {
+            const searchValue = document.getElementById('searchBar').value;
+            const results = document.getElementById('results');
+            results.innerHTML = '';
+
+            if (searchValue) {
+                const filteredData = fmrData.filter(entry => entry.zip === searchValue);
+                if (filteredData.length > 0) {
+                    filteredData.forEach(entry => {
+                        results.innerHTML += `
+                            <div class="result">
+                                <h3>${entry.area}</h3>
+                                <p><strong>1 Bedroom Rent:</strong> ${entry["1_bedroom_rent"]}</p>
+                                <p><strong>2 Bedroom Rent:</strong> ${entry["2_bedroom_rent"]}</p>
+                                <p><strong>3 Bedroom Rent:</strong> ${entry["3_bedroom_rent"]}</p>
+                                <p><strong>4 Bedroom Rent:</strong> ${entry["4_bedroom_rent"]}</p>
+                            </div>
+                        `;
+                    });
+                } else {
+                    results.innerHTML = '<p>No results found.</p>';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
